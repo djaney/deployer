@@ -16,10 +16,10 @@ RUN apk update \
   && update-ca-certificates
 
 # Download terraform
-RUN wget --no-check-certificate https://releases.hashicorp.com/terraform/0.12.17/terraform_0.12.17_linux_amd64.zip
+RUN wget --no-check-certificate https://releases.hashicorp.com/terraform/0.13.0/terraform_0.13.0_linux_amd64.zip
 
 # Extract terraform
-RUN unzip terraform_0.12.17_linux_amd64.zip
+RUN unzip terraform_0.13.0_linux_amd64.zip
 
 # Move terraform binary to /usr/bin
 RUN mv terraform /usr/bin/
@@ -48,8 +48,11 @@ RUN curl -LO \
     chmod +x jq-linux64 && \
     mv jq-linux64 /usr/local/bin/jq
 
+# install aws
+RUN apk add python3 py3-pip && pip install awscli
+
 # Clean up
-RUN rm terraform_0.12.17_linux_amd64.zip
+RUN rm terraform_0.13.0_linux_amd64.zip
 RUN rm awless-linux-386.tar.gz
 RUN rm packer_1.1.3_linux_amd64.zip
 RUN apk del wget
